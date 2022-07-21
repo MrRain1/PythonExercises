@@ -10,3 +10,5 @@ myAge = input() # input() returns strings
 print("You will be: " + str(int(myAge) + 1) + " in a year")
 # int() converts a string to int value
 # float() converts to a float value
+
+#This is a new comment from ipad
