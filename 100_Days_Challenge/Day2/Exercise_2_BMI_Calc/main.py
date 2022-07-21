@@ -10,4 +10,4 @@ weight = input("enter your weight in kg: ")
 BMI_float = (float(weight)) / (float(height))**2
 
 #round the BMI to 2 decimal places
-print(round(BMI_float, 2)) 
+print("Your BMI is: " + str(round(BMI_float, 2))) 
