@@ -5,7 +5,7 @@ weight = input("enter your weight in kg: ")
 
 #Write your code below this line 👇
 
-#BMI = mass / height^2
+#BMI = mass (kg) / height^2 (m^2)
 #convert the strings to floats
 BMI_float = (float(weight)) / (float(height))**2
 
