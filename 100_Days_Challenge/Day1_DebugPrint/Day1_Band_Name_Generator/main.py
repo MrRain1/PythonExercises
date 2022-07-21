@@ -3,11 +3,11 @@ cityName=""
 #1. Create a greeting for your program.
 print("Hello! Wellcome to the band name generator!")
 #2. Ask the user for the city that they grew up in.
-if cityName =="":
+while cityName =="":
     print("Could you tell me in what city did your grow up in?")
     cityName = input()
 #3. Ask the user for the name of a pet.
-if petName =="":
+while petName =="":
     print("Could you tell me the name of your pet?")
     petName = input()
 
