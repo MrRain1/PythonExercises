@@ -1,6 +1,3 @@
-from anyio import maybe_async
-
-
 spam = 0
 yourName = ""
 while spam  < 5:
