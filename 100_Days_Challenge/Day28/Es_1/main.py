@@ -1,6 +1,4 @@
-from cgitb import reset
 import tkinter
-from tkinter.tix import TEXT
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -14,7 +12,7 @@ LONG_BREAK_MIN = 20
 WINDOW_WIDTH = 300
 WINDOW_HEIGTH = 300
 CHECKMARK = "✔"
-
+COUNTDOWN_SPEED_MS = 10
 
 # ---------------------------- TIMER RESET ------------------------------- # 
 
@@ -29,15 +27,53 @@ def reset():
 
 def startTimer():
     counter = 0
+    canvas.itemconfig(text_canvas, text=f"{WORK_MIN}:{WORK_SEC}")
     countdown(WORK_MIN, WORK_SEC, counter)
+    
+def breakTimerShort():
+    canvas.itemconfig(text_canvas, text=f"{SHORT_BREAK_MIN}:{WORK_SEC}")
+    countdown(SHORT_BREAK_MIN, WORK_SEC, False)
+
+def breakTimerLong():
+    canvas.itemconfig(text_canvas, text=f"{LONG_BREAK_MIN}:{WORK_SEC}")
+    countdown(LONG_BREAK_MIN, WORK_SEC, True)
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 
 def countdown(minutes, seconds, counter):
     
-    canvas.itemconfig(text_canvas, text=f"{minutes}:{seconds}")
-    window.after(1, countdown, minutes, seconds, counter+1)
+    if minutes >= 0 and seconds > 0:
+        seconds -= 1
+    elif minutes >0 and seconds == 0:
+        seconds = 59
+        minutes -= 1
     
+    canvas.itemconfig(text_canvas, text=f"{minutes}:{seconds}")
+    if minutes > 0 or seconds > 0:
+        window.after(COUNTDOWN_SPEED_MS, countdown, minutes, seconds, counter+1)
+    else:
+        checkLabel.config(text=checkLabel.cget("text")+CHECKMARK)
+        
+        if counter < 4:
+            breakTimerShort()
+        else:
+            breakTimerLong()
+            counter = 0
+        return None
+    
+    def breakCountdown(minutes, seconds, longFlag):
+        if minutes >= 0 and seconds > 0:
+            seconds -= 1
+        elif minutes >0 and seconds == 0:
+            seconds = 59
+            minutes -= 1
+            
+        canvas.itemconfig(text_canvas, text=f"{minutes}:{seconds}")
+
+        if minutes > 0 or seconds > 0:
+            window.after(COUNTDOWN_SPEED_MS, breakCountdown, minutes, seconds)
+        else:
+            return None
 
 # ---------------------------- UI SETUP ------------------------------- #
 
