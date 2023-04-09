@@ -6,14 +6,15 @@ MY_LONGITUDE = 14.500740
 FORMATTED = 0
 
 parameters = {
-    "lat" : MY_LATITUDE,
-    "lng" : MY_LONGITUDE,
+    "lat": MY_LATITUDE,
+    "lng": MY_LONGITUDE,
     "formatted": FORMATTED,
 }
 
-response = requests.get(url= "https://api.sunrise-sunset.org/json", params= parameters)
+response = requests.get(
+    url="https://api.sunrise-sunset.org/json", params=parameters)
 response.raise_for_status()
-obtained_data= response.json()
+obtained_data = response.json()
 
 timings = {
     "sunrise": int(obtained_data["results"]["sunrise"].split("T")[1].split(":")[0]),
